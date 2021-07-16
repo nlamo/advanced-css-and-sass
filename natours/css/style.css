@@ -1,0 +1,37 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* borders/padding no longer added to total width/height */
+}
+
+/* Best practice is to specific anything related to fony in the 'body' element */
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px; /* padding does not get inherited, of course */
+}
+
+.header {
+    height: 95vh; /* height of the element is always 95% of viewport height */
+    background-image: linear-gradient(
+        to right bottom, 
+        rgba(126, 213, 111, 0.8), 
+        rgba(40, 180, 133, 0.800)), 
+        url('../img/hero.jpg');
+    background-size: cover; /* scales img to provide full coverage while preserving asp ratio */
+    background-position: top; /* keeps the top constant as the viewport changes */
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); /* a polygon for which everything outside the coverage is clipped out */
+}
