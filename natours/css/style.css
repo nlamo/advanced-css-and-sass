@@ -14,14 +14,18 @@ Dark green: #28b485
     box-sizing: border-box; /* borders/padding no longer added to total width/height */
 }
 
+html {
+    font-size: 10px; /* good to have root font-size in base 10 */
+}
+
 /* Best practice is to specific anything related to fony in the 'body' element */
 body {
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    /* font-size: 16px; */
     line-height: 1.7;
     color: #777;
-    padding: 30px; /* padding does not get inherited, of course */
+    padding: 3rem; /* padding does not get inherited, of course */
 }
 
 .header {
@@ -40,12 +44,12 @@ body {
 /* Reference is the parent element that has its position set to 'relative' */
 .logo-box {
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 4rem;
+    left: 4rem;
 }
 
 .logo {
-    height: 35px;
+    height: 3.5rem;
 }
 
 /* Interesting trick for positioning with position: absolute and transform: translate() */
@@ -59,16 +63,16 @@ body {
 .heading-primary {
     color: #FFF;
     text-transform: uppercase;
-
     backface-visibility: hidden; /* little hack to fix animation shake if it occurs */
+    margin-bottom: 6rem;
 }
 
 /* <span> is inline by default, and block is better for these particular elements */
 .heading-primary-main {
     display: block;
-    font-size: 60px;
+    font-size: 6rem;
     font-weight: 700; /* font-weight can be specific to particular fonts! perhaps always */
-    letter-spacing: 35px;
+    letter-spacing: 3.5rem;
 
     animation-name: moveInLeft;
     animation-timing-function: ease-out;
@@ -77,9 +81,9 @@ body {
 
 .heading-primary-sub {
     display: block;
-    font-size: 20px;
+    font-size: 2rem;
     font-weight: 400;
-    letter-spacing: 17.4px;
+    letter-spacing: 1.75rem;
 
     animation: moveInRight ease-out 1.5s;
 }
@@ -88,11 +92,11 @@ body {
 @keyframes moveInLeft {
     0% {
         opacity: 0;
-        transform: translateX(-100px);
+        transform: translateX(-10rem);
     }
 
     80% {
-        transform: translatex(10px);
+        transform: translatex(1rem);
     }
 
     100% {
@@ -105,11 +109,11 @@ body {
 @keyframes moveInRight {
     0% {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(10rem);
     }
 
     80% {
-        transform: translatex(-10px);
+        transform: translatex(-1rem);
     }
 
     100% {
