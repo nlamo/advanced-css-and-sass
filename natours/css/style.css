@@ -8,14 +8,16 @@ Dark green: #28b485
 */
 
 /* Basic reset */
-* {
+*, 
+*::after,
+*::before {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* borders/padding no longer added to total width/height */
+    box-sizing: inherit; /* CSS best practice */
 }
 
 html {
-    font-size: 10px; /* good to have root font-size in base 10 */
+    font-size: 62.5%; /* ,625 * 16 == 10... good to have root font-size in base 10, but expressed as a fraction to accommodate other browser defaults*/
 }
 
 /* Best practice is to specific anything related to fony in the 'body' element */
@@ -26,6 +28,7 @@ body {
     line-height: 1.7;
     color: #777;
     padding: 3rem; /* padding does not get inherited, of course */
+    box-sizing: border-box; /* borders/padding no longer added to total width/height */
 }
 
 .header {
@@ -42,18 +45,18 @@ body {
 }
 
 /* Reference is the parent element that has its position set to 'relative' */
-.logo-box {
+.header__logo-box {
     position: absolute;
     top: 4rem;
     left: 4rem;
 }
 
-.logo {
+.header__logo {
     height: 3.5rem;
 }
 
 /* Interesting trick for positioning with position: absolute and transform: translate() */
-.text-box {
+.header__text-box {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -69,7 +72,7 @@ body {
 }
 
 /* <span> is inline by default, and block is better for these particular elements */
-.heading-primary-main {
+.heading-primary--main {
     display: block;
     font-size: 6rem;
     font-weight: 700; /* font-weight can be specific to particular fonts! perhaps always */
@@ -80,7 +83,7 @@ body {
     animation-duration: 1.5s;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
     display: block;
     font-size: 2rem;
     font-weight: 400;
@@ -127,7 +130,7 @@ body {
 @keyframes moveInFromBottom {
     0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(3rem);
     }
 
     100% {
@@ -142,23 +145,24 @@ body {
     position: relative;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 15px 40px;
-    border-radius: 100px;
+    padding: 1.5rem 4rem;
+    border-radius: 10rem;
+    font-size: 1.6rem;
 
     transition: all .2s; /* transition property must be on initial state */
 }
 
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 10px 20px rgba(0,0,0,.2);
+    transform: translateY(-.3rem);
+    box-shadow: 0rem 1rem 2rem rgba(0,0,0,.2);
 }
 
 .btn:active {
-    transform: translateY(-1px);
-    box-shadow: 0px 5px 10px rgba(0,0,0,.2);
+    transform: translateY(-.1rem);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
 }
 
-.btn-white {
+.btn--white {
     background-color: #FFF;
     color: #777;
 }
@@ -175,12 +179,12 @@ body {
     display: inline-block;
     height: 100%;
     width: 100%;
-    border-radius: 200px;
+    border-radius: 20rem;
 
     transition: all .4s;
 }
 
-.btn-white::after {
+.btn--white::after {
     background-color: #FFF;
 }
 
@@ -192,7 +196,7 @@ body {
 /* this decouples the animation from the button it operates upon, which is good;
  * originally I had set the animation directly to 'btn-white'
  */
-.btn-animated {
+.btn--animated {
     animation: moveInFromBottom .5s ease-out .8s;
     animation-fill-mode: backwards; /* applies values from first relevant keyframe during delay */
 }
