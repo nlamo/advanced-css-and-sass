@@ -58,6 +58,7 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%); /* repositions the element */
+    text-align: center;
 }
 
 .heading-primary {
@@ -120,4 +121,78 @@ body {
         opacity: 1;
         transform: translate(0);
     }
+}
+
+/* animaton comes in from the bottom */
+@keyframes moveInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    display: inline-block;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 100px;
+
+    transition: all .2s; /* transition property must be on initial state */
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 20px rgba(0,0,0,.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0px 5px 10px rgba(0,0,0,.2);
+}
+
+.btn-white {
+    background-color: #FFF;
+    color: #777;
+}
+
+/* after pseudo-element is actualy the last child of .btn
+ * which is why we can set height/width to 100%  
+ */
+.btn::after {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: -1;
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 200px;
+
+    transition: all .4s;
+}
+
+.btn-white::after {
+    background-color: #FFF;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+/* this decouples the animation from the button it operates upon, which is good;
+ * originally I had set the animation directly to 'btn-white'
+ */
+.btn-animated {
+    animation: moveInFromBottom .5s ease-out .8s;
+    animation-fill-mode: backwards; /* applies values from first relevant keyframe during delay */
 }
