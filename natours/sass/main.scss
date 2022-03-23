@@ -1,0 +1,206 @@
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-grey-dark: #777;
+$color-white: #fff;
+
+/* Basic reset */
+*,
+*::after,
+*::before {
+   margin: 0;
+   padding: 0;
+   box-sizing: inherit; /* CSS best practice */
+}
+
+html {
+   font-size: 62.5%; /* ,625 * 16 == 10... good to have root font-size in base 10, but expressed as a fraction to accommodate other browser defaults*/
+}
+
+/* Best practice is to specific anything related to fony in the 'body' element */
+body {
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   /* font-size: 16px; */
+   line-height: 1.7;
+   color: $color-grey-dark;
+   padding: 3rem; /* padding does not get inherited, of course */
+   box-sizing: border-box; /* borders/padding no longer added to total width/height */
+}
+
+.header {
+   position: relative;
+   height: 95vh; /* height of the element is always 95% of viewport height */
+   background-image: linear-gradient(
+         to right bottom,
+         rgba($color-primary-light, 0.8),
+         rgba($color-primary-dark, 0.8)
+      ),
+      url("../img/hero.jpg");
+   background-size: cover; /* scales img to provide full coverage while preserving asp ratio */
+   background-position: top; /* keeps the top constant as the viewport changes */
+   clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 75%,
+      0 100%
+   ); /* a polygon for which everything outside the coverage is clipped out */
+}
+
+/* Reference is the parent element that has its position set to 'relative' */
+.header__logo-box {
+   position: absolute;
+   top: 4rem;
+   left: 4rem;
+}
+
+.header__logo {
+   height: 3.5rem;
+}
+
+/* Interesting trick for positioning with position: absolute and transform: translate() */
+.header__text-box {
+   position: absolute;
+   top: 40%;
+   left: 50%;
+   transform: translate(-50%, -50%); /* repositions the element */
+   text-align: center;
+}
+
+.heading-primary {
+   color: $color-white;
+   text-transform: uppercase;
+   backface-visibility: hidden; /* little hack to fix animation shake if it occurs */
+   margin-bottom: 6rem;
+}
+
+/* <span> is inline by default, and block is better for these particular elements */
+.heading-primary--main {
+   display: block;
+   font-size: 6rem;
+   font-weight: 700; /* font-weight can be specific to particular fonts! perhaps always */
+   letter-spacing: 3.5rem;
+
+   animation-name: moveInLeft;
+   animation-timing-function: ease-out;
+   animation-duration: 1.5s;
+}
+
+.heading-primary--sub {
+   display: block;
+   font-size: 2rem;
+   font-weight: 400;
+   letter-spacing: 1.75rem;
+
+   animation: moveInRight ease-out 1.5s;
+}
+
+/* animation comes in from the left */
+@keyframes moveInLeft {
+   0% {
+      opacity: 0;
+      transform: translateX(-10rem);
+   }
+
+   80% {
+      transform: translatex(1rem);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translate(0);
+   }
+}
+
+/* animation comes in from the right */
+@keyframes moveInRight {
+   0% {
+      opacity: 0;
+      transform: translateX(10rem);
+   }
+
+   80% {
+      transform: translatex(-1rem);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translate(0);
+   }
+}
+
+/* animaton comes in from the bottom */
+@keyframes moveInFromBottom {
+   0% {
+      opacity: 0;
+      transform: translateY(3rem);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translate(0);
+   }
+}
+
+.btn:link,
+.btn:visited {
+   display: inline-block;
+   position: relative;
+   text-transform: uppercase;
+   text-decoration: none;
+   padding: 1.5rem 4rem;
+   border-radius: 10rem;
+   font-size: 1.6rem;
+
+   transition: all 0.2s; /* transition property must be on initial state */
+}
+
+.btn:hover {
+   transform: translateY(-0.3rem);
+   box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+   transform: translateY(-0.1rem);
+   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn--white {
+   background-color: $color-white;
+   color: $color-grey-dark;
+}
+
+/* after pseudo-element is actualy the last child of .btn
+ * which is why we can set height/width to 100%  
+ */
+.btn::after {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: -1;
+   content: "";
+   display: inline-block;
+   height: 100%;
+   width: 100%;
+   border-radius: 20rem;
+
+   transition: all 0.4s;
+}
+
+.btn--white::after {
+   background-color: $color-white;
+}
+
+.btn:hover::after {
+   transform: scaleX(1.4) scaleY(1.6);
+   opacity: 0;
+}
+
+/* this decouples the animation from the button it operates upon, which is good;
+ * originally I had set the animation directly to 'btn-white'
+ */
+.btn--animated {
+   animation: moveInFromBottom 0.5s ease-out 0.8s;
+   animation-fill-mode: backwards; /* applies values from first relevant keyframe during delay */
+}
