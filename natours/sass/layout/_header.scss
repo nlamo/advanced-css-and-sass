@@ -1,0 +1,38 @@
+.header {
+   position: relative;
+   height: 95vh;
+   background-image: linear-gradient(
+         to right bottom,
+         rgba($color-primary-light, 0.8),
+         rgba($color-primary-dark, 0.8)
+      ),
+      url('../img/hero.jpg');
+   background-size: cover; /* scales img to provide full coverage while preserving asp ratio */
+   background-position: top; /* keeps the top constant as the viewport changes */
+   clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 75%,
+      0 100%
+   ); /* a polygon for which everything outside the coverage is clipped out */
+
+   /* Reference is the parent element that has its position set to 'relative' */
+   &__logo-box {
+      position: absolute;
+      top: 4rem;
+      left: 4rem;
+   }
+
+   &__logo {
+      height: 3.5rem;
+   }
+
+   /* Interesting trick for positioning with position: absolute and transform: translate() */
+   &__text-box {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* repositions the element */
+      text-align: center;
+   }
+}

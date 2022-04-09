@@ -1,0 +1,63 @@
+.btn {
+   &:link,
+   &:visited {
+      display: inline-block;
+      position: relative;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.5rem 4rem;
+      border-radius: 10rem;
+      font-size: 1.6rem;
+
+      transition: all 0.2s; /* transition property must be on initial state */
+   }
+
+   &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0rem 1rem 2rem rgba($color-black, 0.2);
+
+      &::after {
+         transform: scaleX(1.4) scaleY(1.6);
+         opacity: 0;
+      }
+   }
+
+   &:active {
+      transform: translateY(-0.1rem);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+   }
+
+   &--white {
+      background-color: $color-white;
+      color: $color-grey-dark;
+
+      &::after {
+         background-color: $color-white;
+      }
+   }
+
+   /* after pseudo-element is actualy the last child of &
+    * which is why we can set height/width to 100%  
+    */
+   &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 20rem;
+
+      transition: all 0.4s;
+   }
+
+   /* this decouples the animation from the button it operates upon, which is good;
+    * originally I had set the animation directly to &-white'
+    */
+   &--animated {
+      animation: moveInFromBottom 0.5s ease-out 0.8s;
+      animation-fill-mode: backwards; /* applies values from first relevant keyframe during delay */
+   }
+}

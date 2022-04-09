@@ -1,0 +1,16 @@
+/* Basic reset */
+*,
+*::after,
+*::before {
+   margin: 0;
+   padding: 0;
+   box-sizing: inherit; /* CSS best practice */
+}
+
+html {
+   font-size: 62.5%; /* ,625 * 16 == 10... good to have root font-size in base 10, but expressed as a fraction to accommodate other browser defaults*/
+}
+
+body {
+   box-sizing: border-box; /* borders/padding no longer added to total width/height */
+}

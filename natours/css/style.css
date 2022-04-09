@@ -13,79 +13,9 @@ html {
   /* ,625 * 16 == 10... good to have root font-size in base 10, but expressed as a fraction to accommodate other browser defaults*/
 }
 
-/* Best practice is to specific anything related to fony in the 'body' element */
 body {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  /* font-size: 16px; */
-  line-height: 1.7;
-  color: #777;
-  padding: 3rem;
-  /* padding does not get inherited, of course */
   box-sizing: border-box;
   /* borders/padding no longer added to total width/height */
-}
-
-.header {
-  position: relative;
-  height: 95vh;
-  /* height of the element is always 95% of viewport height */
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
-  background-size: cover;
-  /* scales img to provide full coverage while preserving asp ratio */
-  background-position: top;
-  /* keeps the top constant as the viewport changes */
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
-  /* a polygon for which everything outside the coverage is clipped out */
-}
-
-/* Reference is the parent element that has its position set to 'relative' */
-.header__logo-box {
-  position: absolute;
-  top: 4rem;
-  left: 4rem;
-}
-
-.header__logo {
-  height: 3.5rem;
-}
-
-/* Interesting trick for positioning with position: absolute and transform: translate() */
-.header__text-box {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* repositions the element */
-  text-align: center;
-}
-
-.heading-primary {
-  color: #fff;
-  text-transform: uppercase;
-  backface-visibility: hidden;
-  /* little hack to fix animation shake if it occurs */
-  margin-bottom: 6rem;
-}
-
-/* <span> is inline by default, and block is better for these particular elements */
-.heading-primary--main {
-  display: block;
-  font-size: 6rem;
-  font-weight: 700;
-  /* font-weight can be specific to particular fonts! perhaps always */
-  letter-spacing: 3.5rem;
-  animation-name: moveInLeft;
-  animation-timing-function: ease-out;
-  animation-duration: 1.5s;
-}
-
-.heading-primary--sub {
-  display: block;
-  font-size: 2rem;
-  font-weight: 400;
-  letter-spacing: 1.75rem;
-  animation: moveInRight ease-out 1.5s;
 }
 
 /* animation comes in from the left */
@@ -127,8 +57,50 @@ body {
     transform: translate(0);
   }
 }
-.btn:link,
-.btn:visited {
+/* Best practice is to specific anything related to fony in the 'body' element */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem;
+  /* padding does not get inherited */
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  /* little hack to fix animation shake if it occurs */
+  margin-bottom: 6rem;
+  /* <span> is inline by default, and block is better for these particular elements */
+}
+.heading-primary--main {
+  display: block;
+  font-size: 6rem;
+  font-weight: 700;
+  letter-spacing: 3.5rem;
+  animation-name: moveInLeft;
+  animation-timing-function: ease-out;
+  animation-duration: 1.5s;
+}
+.heading-primary--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 1.75rem;
+  animation: moveInRight ease-out 1.5s;
+}
+
+.btn {
+  /* after pseudo-element is actualy the last child of &
+   * which is why we can set height/width to 100%  
+   */
+  /* this decouples the animation from the button it operates upon, which is good;
+   * originally I had set the animation directly to &-white'
+   */
+}
+.btn:link, .btn:visited {
   display: inline-block;
   position: relative;
   text-transform: uppercase;
@@ -139,25 +111,25 @@ body {
   transition: all 0.2s;
   /* transition property must be on initial state */
 }
-
 .btn:hover {
   transform: translateY(-0.3rem);
   box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.2);
 }
-
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
 .btn:active {
   transform: translateY(-0.1rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
-
 .btn--white {
   background-color: #fff;
   color: #777;
 }
-
-/* after pseudo-element is actualy the last child of .btn
- * which is why we can set height/width to 100%  
- */
+.btn--white::after {
+  background-color: #fff;
+}
 .btn::after {
   position: absolute;
   top: 0;
@@ -170,23 +142,40 @@ body {
   border-radius: 20rem;
   transition: all 0.4s;
 }
-
-.btn--white::after {
-  background-color: #fff;
-}
-
-.btn:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0;
-}
-
-/* this decouples the animation from the button it operates upon, which is good;
- * originally I had set the animation directly to 'btn-white'
- */
 .btn--animated {
   animation: moveInFromBottom 0.5s ease-out 0.8s;
   animation-fill-mode: backwards;
   /* applies values from first relevant keyframe during delay */
+}
+
+.header {
+  position: relative;
+  height: 95vh;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  background-size: cover;
+  /* scales img to provide full coverage while preserving asp ratio */
+  background-position: top;
+  /* keeps the top constant as the viewport changes */
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  /* a polygon for which everything outside the coverage is clipped out */
+  /* Reference is the parent element that has its position set to 'relative' */
+  /* Interesting trick for positioning with position: absolute and transform: translate() */
+}
+.header__logo-box {
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+}
+.header__logo {
+  height: 3.5rem;
+}
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* repositions the element */
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */
